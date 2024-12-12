@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const userRoutes = require("./routes/userRoutes");
 const authRoutes = require("./routes/authRoute");
+const cookieParser = require("cookie-parser");
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ const MONGO_URL = process.env.MONGO;
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 
 mongoose
   .connect(MONGO_URL)
@@ -25,7 +27,7 @@ app.listen(3000, () => {
   console.log("Server is running on port 3000 !!");
 });
 
-app.use("/api/users", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
 
 // middleware pour gerer les erreurs .
